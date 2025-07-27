@@ -78,8 +78,8 @@ export const CommentList: React.FC<CommentListProps> = ({ postId }) => {
 
                 {postComments.length === 0 ? (
                     <div className="text-center py-8 text-gray-500">
-                        <MessageCircle className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                        <p>Коментарів поки немає. Будьте першим!</p>
+                        <MessageCircle className="w-12 h-12 mx-auto mb-4 text-gray-300"/>
+                        <p>No comments yet. Be the first!</p>
                     </div>
                 ) : (
                     <div className="space-y-4">
