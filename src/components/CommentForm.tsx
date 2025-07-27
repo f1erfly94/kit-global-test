@@ -4,14 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MessageCircle } from 'lucide-react';
 import { AppDispatch, RootState } from '@/store';
 import { createComment } from '@/store/slices/commentsSlice';
-import {Blog, Comment} from '@/types';
+import { BlogComment, CreateBlogCommentData } from '@/types';
 import { Input } from './ui/Input';
 import { Textarea } from './ui/Textarea';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
-import { validateFormData } from "@/lib/validations/filterSchema";
-import { createCommentSchema } from "@/lib/validations/commentSchema";
-import CreateCommentData = Blog.CreateCommentData;
+import { validateFormData } from '@/lib/validations/filterSchema';
+import { createCommentSchema } from '@/lib/validations/commentSchema';
 
 interface CommentFormProps {
     postId: string;
@@ -23,13 +22,13 @@ export const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
     const [localLoading, setLocalLoading] = useState(false);
     const [errors, setErrors] = useState<Record<string, string>>({});
 
-    const [formData, setFormData] = useState<CreateCommentData>({
+    const [formData, setFormData] = useState<CreateBlogCommentData>({
         postId,
         author: '',
         content: ''
     });
 
-    const handleInputChange = (field: keyof CreateCommentData, value: string) => {
+    const handleInputChange = (field: keyof CreateBlogCommentData, value: string) => {
         setFormData(prev => ({ ...prev, [field]: value }));
         if (errors[field]) {
             setErrors(prev => ({ ...prev, [field]: '' }));
@@ -50,14 +49,13 @@ export const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
         }
 
         try {
-            const optimisticComment: Comment = {
+            const optimisticComment: BlogComment = {
                 id: `temp-${Date.now()}`,
                 postId: formData.postId,
                 author: formData.author,
                 content: formData.content,
                 createdAt: new Date().toISOString(),
             };
-
 
             setFormData({ postId, author: '', content: '' });
 
@@ -67,7 +65,6 @@ export const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
                 setFormData(validation.data!);
                 throw new Error(result.payload as string);
             }
-
         } catch (error) {
             console.error('Error creating comment:', error);
             setErrors({
@@ -121,7 +118,6 @@ export const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
                         required
                         disabled={localLoading}
                     />
-
 
                     <Button
                         type="submit"

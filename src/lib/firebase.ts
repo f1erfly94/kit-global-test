@@ -13,8 +13,7 @@ import {
     where,
     Timestamp
 } from 'firebase/firestore';
-import {Post, CreatePostData, Comment, Blog} from '@/types';
-import CreateCommentData = Blog.CreateCommentData;
+import { Post, CreatePostData, BlogComment, CreateBlogCommentData } from '@/types';
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -113,7 +112,7 @@ export class FirebaseService {
         }
     }
 
-    static async createComment(commentData: CreateCommentData): Promise<string> {
+    static async createComment(commentData: CreateBlogCommentData): Promise<string> {
         try {
             const docRef = await addDoc(commentsCollection, {
                 ...commentData,
@@ -126,9 +125,9 @@ export class FirebaseService {
         }
     }
 
-    static async getCommentsByPost(postId: string): Promise<Comment[]> {
+    static async getCommentsByPost(postId: string): Promise<BlogComment[]> {
         try {
-          const q = query(
+            const q = query(
                 commentsCollection,
                 where('postId', '==', postId),
                 orderBy('createdAt', 'desc')
@@ -139,7 +138,7 @@ export class FirebaseService {
                 id: doc.id,
                 ...doc.data(),
                 createdAt: doc.data().createdAt?.toDate().toISOString() || new Date().toISOString()
-            })) as Comment[];
+            })) as BlogComment[];
         } catch (error) {
             console.error('Error fetching comments:', error);
 
@@ -152,7 +151,7 @@ export class FirebaseService {
         }
     }
 
-    static async getCommentsByPostFallback(postId: string): Promise<Comment[]> {
+    static async getCommentsByPostFallback(postId: string): Promise<BlogComment[]> {
         try {
             const q = query(commentsCollection, where('postId', '==', postId));
             const querySnapshot = await getDocs(q);
@@ -161,7 +160,7 @@ export class FirebaseService {
                 id: doc.id,
                 ...doc.data(),
                 createdAt: doc.data().createdAt?.toDate().toISOString() || new Date().toISOString()
-            })) as Comment[];
+            })) as BlogComment[];
 
             return comments.sort((a, b) => {
                 const dateA = new Date(a.createdAt);

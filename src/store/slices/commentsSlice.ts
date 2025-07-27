@@ -1,9 +1,12 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import {Blog, Comment, CommentsState} from '@/types';
+import {
+    BlogComment,
+    CreateBlogCommentData,
+    BlogCommentsState
+} from '@/types';
 import { FirebaseService } from '@/lib/firebase';
-import CreateCommentData = Blog.CreateCommentData;
 
-const initialState: CommentsState = {
+const initialState: BlogCommentsState = {
     items: [],
     loading: false,
     error: null,
@@ -23,7 +26,7 @@ export const fetchComments = createAsyncThunk(
 
 export const createComment = createAsyncThunk(
     'comments/createComment',
-    async (commentData: CreateCommentData, { rejectWithValue }) => {
+    async (commentData: CreateBlogCommentData, { rejectWithValue }) => {
         try {
             const commentId = await FirebaseService.createComment(commentData);
             const comments = await FirebaseService.getCommentsByPost(commentData.postId);
@@ -69,7 +72,7 @@ const commentsSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(fetchComments.fulfilled, (state, action) => {
+            .addCase(fetchComments.fulfilled, (state, action: PayloadAction<BlogComment[]>) => {
                 state.loading = false;
                 state.items = action.payload;
                 state.error = null;
@@ -83,7 +86,7 @@ const commentsSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(createComment.fulfilled, (state, action) => {
+            .addCase(createComment.fulfilled, (state, action: PayloadAction<BlogComment | undefined>) => {
                 state.loading = false;
                 if (action.payload) {
                     state.items.unshift(action.payload);
@@ -98,7 +101,7 @@ const commentsSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(deleteComment.fulfilled, (state, action) => {
+            .addCase(deleteComment.fulfilled, (state, action: PayloadAction<string>) => {
                 state.loading = false;
                 state.items = state.items.filter(comment => comment.id !== action.payload);
             })
