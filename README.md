@@ -1,36 +1,139 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Single Page Blog with Redux Toolkit, TypeScript, and Next.js 13+
+A modern blog web app built using the latest web development technologies. The project demonstrates the best practices for developing React apps using TypeScript, Redux Toolkit for state management, Next.js 13+ with App Router for SSR, Zod for data validation, and Firebase Firestore as a database.
+🚀 Features
+✨ Key Features
 
-## Getting Started
+View Posts: Display a list of blog posts with pagination
+Create Posts: Create form with field validation
+Edit Posts: Ability to edit existing posts
+Delete Posts: Delete posts with confirmation
+Comments: Post comment system
+Filtering: Search by title, author and sorting
+Tags: Tag system for categorizing posts
 
-First, run the development server:
+🎨 UI/UX
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Responsive Design: Works on all devices
+Modern UI: Uses Tailwind CSS
+Smooth Animations: Transitions and hover effects
+Dark Theme: Supports light and dark themes
+Accessibility: Compliance with accessibility standards
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🛠 Technical Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+TypeScript: Full code typing
+SSR: Server-Side Rendering with Next.js 13+
+Redux Toolkit Query: Efficient state management
+Zod validation: Strict form validation
+Firebase Integration: Real database
+Jest testing: Test coverage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+📋 Requirements
 
-## Learn More
+Node.js 18+
+npm or yarn
+Firebase project with Firestore configured
 
-To learn more about Next.js, take a look at the following resources:
+📁 Project structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+blog-app/
+├── src/
+│ ├── app/ # Next.js 13+ App Router
+│ │ ├── layout.tsx # Main layout
+│ │ ├── page.tsx # Home page
+│ │ ├── post/[id]/ # Dynamic routes for posts
+│ │ ├── create/ # Post creation page
+│ │ └── providers.tsx # Redux Provider
+│ ├── components/ # React components
+│ │ ├── ui/ # Reusable UI components
+│ │ ├── PostList.tsx # Post list
+│ │ ├── PostCard.tsx # Post card
+│ │ ├── PostForm.tsx # Create/Edit form
+│ │ ├── PostDetail.tsx # Post detail view
+│ │ ├── CommentForm.tsx # Comment form
+│ │ ├── CommentList.tsx # Comment list
+│ │ └── FilterBar.tsx # Filter panel
+│ ├── store/ # Redux store
+│ │ ├── index.ts # Store configuration
+│ │ └── slices/ # Redux slices
+│ │ ├── postsSlice.ts
+│ │ ├── commentsSlice.ts
+│ │ └── filtersSlice.ts
+│ ├── lib/ # Utilities and configuration
+│ │ ├── firebase.ts # Firebase configuration
+│ │ └── validations/ # Zod validation schemes
+│ ├── types/ # TypeScript types
+│ └── hooks/ # Custom React hooks
+├── __tests__/ # Tests
+├── public/ # Static files
+├── package.json
+├── next.config.js
+├── tailwind.config.js
+├── tsconfig.json
+└── README.md
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+🔄 Redux Store
+State Slices
+Posts Slice
+typescriptinterface PostsState {
+items: Post[]; // Array of all posts
+currentPost: Post | null; // Current viewed post
+loading: boolean; // Loading state
+error: string | null; // Errors
+}
+Comments Slice
+typescriptinterface CommentsState {
+items: Comment[]; // Comments of the current post
+loading: boolean;
+error: string | null;
+}
+Filters Slice
+typescriptinterface FilterState {
+searchTerm: string; // Search term
+author: string; // Filter by author
+sortBy: 'newest' | 'oldest' | 'title'; // Sorting
+}
+Async Actions
 
-## Deploy on Vercel
+fetchPosts() - Load all posts
+fetchPost(id) - Load a specific post
+createPost(data) - Create a new post
+updatePost({id, updates}) - Update a post
+deletePost(id) - Delete a post
+fetchComments(postId) - Load comments
+createComment(data) - Create a comment
+deleteComment(id) - Delete a comment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+📝 Data validation (Zod)
+Post schema
+typescriptconst createPostSchema = z.object({
+title: z.string().min(3).max(100),
+content: z.string().min(10).max(5000),
+author: z.string().min(2).max(50),
+excerpt: z.string().min(10).max(200),
+tags: z.array(z.string()).max(5)
+});
+Comment Schema
+typescriptconst createCommentSchema = z.object({
+postId: z.string().min(1),
+author: z.string().min(2).max(50),
+content: z.string().min(5).max(500)
+});
+🎨 UI Components
+Basic components
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Button - Button with different style options
+Input - Input field with validation
+Textarea - Multiline input field
+Card - Container with shadow
+Badge - Label for tags
+LoadingSpinner - Loading indicator
+
+Composite components
+
+PostCard - Post card in the list
+PostForm - Post creation/editing form
+PostDetail - Post detailed view
+FilterBar - Filter and search panel
+CommentForm - Comment adding form
+CommentList - Comment list
