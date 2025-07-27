@@ -34,43 +34,6 @@ Node.js 18+
 npm or yarn
 Firebase project with Firestore configured
 
-📁 Project structure
-
-blog-app/
-├── src/
-│ ├── app/ # Next.js 13+ App Router
-│ │ ├── layout.tsx # Main layout
-│ │ ├── page.tsx # Home page
-│ │ ├── post/[id]/ # Dynamic routes for posts
-│ │ ├── create/ # Post creation page
-│ │ └── providers.tsx # Redux Provider
-│ ├── components/ # React components
-│ │ ├── ui/ # Reusable UI components
-│ │ ├── PostList.tsx # Post list
-│ │ ├── PostCard.tsx # Post card
-│ │ ├── PostForm.tsx # Create/Edit form
-│ │ ├── PostDetail.tsx # Post detail view
-│ │ ├── CommentForm.tsx # Comment form
-│ │ ├── CommentList.tsx # Comment list
-│ │ └── FilterBar.tsx # Filter panel
-│ ├── store/ # Redux store
-│ │ ├── index.ts # Store configuration
-│ │ └── slices/ # Redux slices
-│ │ ├── postsSlice.ts
-│ │ ├── commentsSlice.ts
-│ │ └── filtersSlice.ts
-│ ├── lib/ # Utilities and configuration
-│ │ ├── firebase.ts # Firebase configuration
-│ │ └── validations/ # Zod validation schemes
-│ ├── types/ # TypeScript types
-│ └── hooks/ # Custom React hooks
-├── __tests__/ # Tests
-├── public/ # Static files
-├── package.json
-├── next.config.js
-├── tailwind.config.js
-├── tsconfig.json
-└── README.md
 
 🔄 Redux Store
 State Slices
