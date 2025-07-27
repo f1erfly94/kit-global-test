@@ -29,7 +29,7 @@ export const PostDetail: React.FC<PostDetailProps> = ({ postId, onEdit }) => {
     }, [dispatch, postId]);
 
     const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString('ru-RU', {
+        return new Date(dateString).toLocaleDateString('en-GB', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
@@ -39,7 +39,7 @@ export const PostDetail: React.FC<PostDetailProps> = ({ postId, onEdit }) => {
     };
 
     const handleDelete = async () => {
-        if (window.confirm('Вы уверены, что хотите удалить этот пост?')) {
+        if (window.confirm('Are you sure you want to delete this post?')) {
             await dispatch(deletePost(postId));
             router.push('/');
         }
@@ -57,11 +57,11 @@ export const PostDetail: React.FC<PostDetailProps> = ({ postId, onEdit }) => {
         return (
             <div className="text-center py-12">
                 <div className="text-red-600 mb-4">
-                    <p className="text-lg font-semibold">Пост не найден</p>
+                    <p className="text-lg font-semibold">Post not found</p>
                 </div>
                 <Button onClick={() => router.push('/')}>
                     <ArrowLeft className="w-4 h-4 mr-2" />
-                    Вернуться к списку
+                    Back to list
                 </Button>
             </div>
         );
@@ -76,19 +76,19 @@ export const PostDetail: React.FC<PostDetailProps> = ({ postId, onEdit }) => {
                     className="flex items-center gap-2"
                 >
                     <ArrowLeft className="w-4 h-4" />
-                    Назад к списку
+                    Back to list
                 </Button>
 
                 <div className="flex gap-2">
                     {onEdit && (
                         <Button onClick={onEdit} variant="secondary" size="sm">
                             <Edit className="w-4 h-4 mr-2" />
-                            Редактировать
+                            Edit
                         </Button>
                     )}
                     <Button onClick={handleDelete} variant="danger" size="sm">
                         <Trash2 className="w-4 h-4 mr-2" />
-                        Удалить
+                        Delete
                     </Button>
                 </div>
             </div>
@@ -110,8 +110,8 @@ export const PostDetail: React.FC<PostDetailProps> = ({ postId, onEdit }) => {
                         </div>
                         {post.updatedAt !== post.createdAt && (
                             <span className="text-sm text-gray-400">
-                (обновлено {formatDate(post.updatedAt)})
-              </span>
+                                (updated {formatDate(post.updatedAt)})
+                            </span>
                         )}
                     </div>
 
