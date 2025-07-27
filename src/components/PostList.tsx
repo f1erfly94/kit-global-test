@@ -23,7 +23,7 @@ export const PostList: React.FC<PostListProps> = ({ onEdit, showActions = false 
     }, [dispatch]);
 
     const filteredAndSortedPosts = useMemo(() => {
-        let filtered = posts.filter(post => {
+        const filtered = posts.filter(post => {
             const matchesSearch = !filters.searchTerm ||
                 post.title.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
                 post.content.toLowerCase().includes(filters.searchTerm.toLowerCase());
