@@ -1,28 +1,23 @@
 'use client';
 
-import React, { useState, use } from 'react';
+import React, { useState } from 'react';
 import { PostDetail } from '@/components/PostDetail';
 import { PostForm } from '@/components/PostForm';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 
 interface PageProps {
-    params: Promise<{ id: string }>;
+    params: { id: string };
 }
 
 export default function PostPage({ params }: PageProps) {
     const [isEditing, setIsEditing] = useState(false);
     const currentPost = useSelector((state: RootState) => state.posts.currentPost);
 
-    const { id } = use(params);
+    const { id } = params;
 
-    const handleEditSuccess = () => {
-        setIsEditing(false);
-    };
-
-    const handleEditCancel = () => {
-        setIsEditing(false);
-    };
+    const handleEditSuccess = () => setIsEditing(false);
+    const handleEditCancel = () => setIsEditing(false);
 
     if (isEditing) {
         return (
