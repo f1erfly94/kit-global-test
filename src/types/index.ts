@@ -23,6 +23,13 @@ export interface PostsState {
     loading: boolean;
     error: string | null;
 }
+export interface Comment {
+    id: string;
+    postId: string;
+    content: string;
+    author: string;
+    createdAt: string;
+}
 
 export interface CommentsState {
     items: Comment[];

@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MessageCircle } from 'lucide-react';
 import { AppDispatch, RootState } from '@/store';
 import { createComment } from '@/store/slices/commentsSlice';
-import { CreateCommentData, Comment } from '@/types';
+import {Blog, Comment} from '@/types';
 import { Input } from './ui/Input';
 import { Textarea } from './ui/Textarea';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
 import { validateFormData } from "@/lib/validations/filterSchema";
 import { createCommentSchema } from "@/lib/validations/commentSchema";
+import CreateCommentData = Blog.CreateCommentData;
 
 interface CommentFormProps {
     postId: string;

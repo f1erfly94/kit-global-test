@@ -1,4 +1,5 @@
 'use client';
+
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Search, User, SortAsc } from 'lucide-react';
@@ -20,7 +21,9 @@ export const FilterBar: React.FC = () => {
                         <Input
                             placeholder="Search by title..."
                             value={filters.searchTerm}
-                            onChange={(e) => dispatch(setSearchTerm(e.target.value))}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                dispatch(setSearchTerm(e.target.value))
+                            }
                             className="pl-10"
                         />
                     </div>
@@ -32,7 +35,9 @@ export const FilterBar: React.FC = () => {
                         <Input
                             placeholder="Author..."
                             value={filters.author}
-                            onChange={(e) => dispatch(setAuthor(e.target.value))}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                dispatch(setAuthor(e.target.value))
+                            }
                             className="pl-10"
                         />
                     </div>
@@ -43,7 +48,7 @@ export const FilterBar: React.FC = () => {
                         <SortAsc className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                         <select
                             value={filters.sortBy}
-                            onChange={(e) =>
+                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                                 dispatch(setSortBy(e.target.value as 'newest' | 'oldest' | 'title'))
                             }
                             className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"

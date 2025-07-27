@@ -1,5 +1,13 @@
 import React, { useId } from 'react';
 
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+    label?: string;
+    error?: string;
+    helperText?: string;
+    className?: string;
+    id?: string;
+}
+
 export const Input: React.FC<InputProps> = ({
                                                 label,
                                                 error,

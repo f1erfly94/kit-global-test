@@ -7,14 +7,15 @@ import { deleteComment, fetchComments } from '@/store/slices/commentsSlice';
 import { Card } from './ui/Card';
 import { Button } from './ui/Button';
 import { LoadingSpinner } from './ui/LoadingSpinner';
-
+import {  CommentsState } from "@/types";
+import {  Comment } from "@/types";
 interface CommentListProps {
     postId: string;
 }
 
 export const CommentList: React.FC<CommentListProps> = ({ postId }) => {
     const dispatch = useDispatch<AppDispatch>();
-    const { items: comments, loading, error } = useSelector((state: RootState) => state.comments);
+    const { items: comments, loading, error } = useSelector((state: RootState) => state.comments) as CommentsState;
 
     useEffect(() => {
         if (postId) {
@@ -22,11 +23,12 @@ export const CommentList: React.FC<CommentListProps> = ({ postId }) => {
         }
     }, [dispatch, postId]);
 
-    const postComments = comments.filter(comment => comment.postId === postId);
+    const postComments = (comments as Array<Comment & { postId: string }>)
+        .filter(comment => comment.postId === postId);
 
     const formatDate = (dateString: string) => {
         try {
-            return new Date(dateString).toLocaleDateString('uk-UA', {
+            return new Date(dateString).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'short',
                 day: 'numeric',
@@ -39,7 +41,7 @@ export const CommentList: React.FC<CommentListProps> = ({ postId }) => {
     };
 
     const handleDelete = async (commentId: string) => {
-        if (window.confirm('Ви впевнені, що хочете видалити цей коментар?')) {
+        if (window.confirm('Are you sure you want to delete this comment?')) {
             try {
                 await dispatch(deleteComment(commentId)).unwrap();
             } catch (error) {
@@ -60,7 +62,7 @@ export const CommentList: React.FC<CommentListProps> = ({ postId }) => {
         return (
             <Card>
                 <div className="p-6 text-center">
-                    <p className="text-red-600">Не вдалося завантажити коментарі: {error}</p>
+                    <p className="text-red-600">Failed to load comments: {error}</p>
                 </div>
             </Card>
         );
@@ -93,7 +95,7 @@ export const CommentList: React.FC<CommentListProps> = ({ postId }) => {
                                         <div className="flex items-center gap-1">
                                             <User className="w-4 h-4" />
                                             <span className="font-medium text-gray-900">
-                                                {comment.author || 'Анонім'}
+                                                {comment.author || 'Anonymous'}
                                             </span>
                                         </div>
                                         <div className="flex items-center gap-1">

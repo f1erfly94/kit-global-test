@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { Comment, CreateCommentData, CommentsState } from '@/types';
+import {Blog, Comment, CommentsState} from '@/types';
 import { FirebaseService } from '@/lib/firebase';
+import CreateCommentData = Blog.CreateCommentData;
 
 const initialState: CommentsState = {
     items: [],

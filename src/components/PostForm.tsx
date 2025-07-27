@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, KeyboardEvent, ChangeEvent, FormEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { X, Plus } from 'lucide-react';
 import { AppDispatch } from '@/store';
@@ -10,8 +10,8 @@ import { Input } from './ui/Input';
 import { Textarea } from './ui/Textarea';
 import { Button } from './ui/Button';
 import { Card } from './ui/Card';
-import {validateFormData} from "@/lib/validations/filterSchema";
-import {createPostSchema} from "@/lib/validations/postSchema";
+import { validateFormData } from "@/lib/validations/filterSchema";
+import { createPostSchema } from "@/lib/validations/postSchema";
 
 interface PostFormProps {
     post?: Post | null;
@@ -53,10 +53,11 @@ export const PostForm: React.FC<PostFormProps> = ({ post, onSuccess, onCancel })
     };
 
     const handleAddTag = () => {
-        if (tagInput.trim() && !formData.tags.includes(tagInput.trim()) && formData.tags.length < 5) {
+        const trimmedTag = tagInput.trim();
+        if (trimmedTag && !formData.tags.includes(trimmedTag) && formData.tags.length < 5) {
             setFormData(prev => ({
                 ...prev,
-                tags: [...prev.tags, tagInput.trim()]
+                tags: [...prev.tags, trimmedTag]
             }));
             setTagInput('');
         }
@@ -69,7 +70,7 @@ export const PostForm: React.FC<PostFormProps> = ({ post, onSuccess, onCancel })
         }));
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
         setErrors({});
@@ -89,14 +90,23 @@ export const PostForm: React.FC<PostFormProps> = ({ post, onSuccess, onCancel })
                 await dispatch(createPost(validation.data!));
             }
 
-            if (onSuccess) {
-                onSuccess();
-            }
+            onSuccess?.();
         } catch (error) {
             setErrors({ general: 'An error occurred while saving the post.' });
         } finally {
             setLoading(false);
         }
+    };
+
+    const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleAddTag();
+        }
+    };
+
+    const handleTagInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setTagInput(e.target.value);
     };
 
     return (
@@ -116,7 +126,7 @@ export const PostForm: React.FC<PostFormProps> = ({ post, onSuccess, onCancel })
                     <Input
                         label="Title"
                         value={formData.title}
-                        onChange={(e) => handleInputChange('title', e.target.value)}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange('title', e.target.value)}
                         error={errors.title}
                         placeholder="Enter post title..."
                         required
@@ -125,7 +135,7 @@ export const PostForm: React.FC<PostFormProps> = ({ post, onSuccess, onCancel })
                     <Input
                         label="Author"
                         value={formData.author}
-                        onChange={(e) => handleInputChange('author', e.target.value)}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange('author', e.target.value)}
                         error={errors.author}
                         placeholder="Your name..."
                         required
@@ -134,7 +144,7 @@ export const PostForm: React.FC<PostFormProps> = ({ post, onSuccess, onCancel })
                     <Textarea
                         label="Excerpt"
                         value={formData.excerpt}
-                        onChange={(e) => handleInputChange('excerpt', e.target.value)}
+                        onChange={(e: ChangeEvent<HTMLTextAreaElement>) => handleInputChange('excerpt', e.target.value)}
                         error={errors.excerpt}
                         placeholder="Short description of the post..."
                         rows={3}
@@ -144,7 +154,7 @@ export const PostForm: React.FC<PostFormProps> = ({ post, onSuccess, onCancel })
                     <Textarea
                         label="Content"
                         value={formData.content}
-                        onChange={(e) => handleInputChange('content', e.target.value)}
+                        onChange={(e: ChangeEvent<HTMLTextAreaElement>) => handleInputChange('content', e.target.value)}
                         error={errors.content}
                         placeholder="Main content of the post..."
                         rows={8}
@@ -159,14 +169,9 @@ export const PostForm: React.FC<PostFormProps> = ({ post, onSuccess, onCancel })
                         <div className="flex gap-2 mb-3">
                             <Input
                                 value={tagInput}
-                                onChange={(e) => setTagInput(e.target.value)}
+                                onChange={handleTagInputChange}
                                 placeholder="Add a tag..."
-                                onKeyPress={(e) => {
-                                    if (e.key === 'Enter') {
-                                        e.preventDefault();
-                                        handleAddTag();
-                                    }
-                                }}
+                                onKeyPress={handleKeyPress}
                                 className="flex-1"
                             />
                             <Button
