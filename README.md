@@ -1,102 +1,162 @@
-Single Page Blog with Redux Toolkit, TypeScript, and Next.js 13+
-A modern blog web app built using the latest web development technologies. The project demonstrates the best practices for developing React apps using TypeScript, Redux Toolkit for state management, Next.js 13+ with App Router for SSR, Zod for data validation, and Firebase Firestore as a database.
-🚀 Features
-✨ Key Features
+<h1> Single-Page Blog with Redux Toolkit, TypeScript, and Next.js 15+ </h1>
+A modern blog web application built using cutting-edge web technologies. This project demonstrates best practices in React development with TypeScript, Redux Toolkit for state management, Next.js 15+ with the App Router for SSR, Zod for data validation, and Firebase Firestore as a backend database.
 
-View Posts: Display a list of blog posts with pagination
-Create Posts: Create form with field validation
-Edit Posts: Ability to edit existing posts
-Delete Posts: Delete posts with confirmation
-Comments: Post comment system
-Filtering: Search by title, author and sorting
-Tags: Tag system for categorizing posts
+<h2>Installation & Setup</h2> 
 
-🎨 UI/UX
+1. Clone the Repository
+   
+```git clone https://github.com/f1erfly94/kit-global-test/```
 
-Responsive Design: Works on all devices
-Modern UI: Uses Tailwind CSS
-Smooth Animations: Transitions and hover effects
-Dark Theme: Supports light and dark themes
-Accessibility: Compliance with accessibility standards
+```cd blog-app```
 
-🛠 Technical Features
+2. Install Dependencies
+   
+```npm install```
+or
+```yarn install```
 
-TypeScript: Full code typing
-SSR: Server-Side Rendering with Next.js 13+
-Redux Toolkit Query: Efficient state management
-Zod validation: Strict form validation
-Firebase Integration: Real database
-Jest testing: Test coverage
+3. Set Up Firebase
+   
+- Create a project in Firebase Console
+  
+- Enable Firestore Database
+  
+- Create a .env.local file in the root directory with the following:
 
-📋 Requirements
+```
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key_here
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=123456789
+NEXT_PUBLIC_FIREBASE_APP_ID=1:123456789:web:abcdef123456
+```
 
-Node.js 18+
-npm or yarn
-Firebase project with Firestore configured
+4. Run the App
+   
+```npm run dev```
+or
+```yarn dev```
+
+6. Then open http://localhost:3000 in your browser
 
 
-🔄 Redux Store
-State Slices
-Posts Slice
-typescriptinterface PostsState {
-items: Post[]; // Array of all posts
-currentPost: Post | null; // Current viewed post
-loading: boolean; // Loading state
-error: string | null; // Errors
-}
-Comments Slice
-typescriptinterface CommentsState {
-items: Comment[]; // Comments of the current post
-loading: boolean;
-error: string | null;
-}
-Filters Slice
-typescriptinterface FilterState {
-searchTerm: string; // Search term
-author: string; // Filter by author
-sortBy: 'newest' | 'oldest' | 'title'; // Sorting
-}
-Async Actions
+<h2> Features </h2>
 
-fetchPosts() - Load all posts
-fetchPost(id) - Load a specific post
-createPost(data) - Create a new post
-updatePost({id, updates}) - Update a post
-deletePost(id) - Delete a post
-fetchComments(postId) - Load comments
-createComment(data) - Create a comment
-deleteComment(id) - Delete a comment
+- Post Listing: View a paginated list of blog posts
 
-📝 Data validation (Zod)
-Post schema
-typescriptconst createPostSchema = z.object({
-title: z.string().min(3).max(100),
-content: z.string().min(10).max(5000),
-author: z.string().min(2).max(50),
-excerpt: z.string().min(10).max(200),
-tags: z.array(z.string()).max(5)
+- Post Creation: Form with field validation to create new posts
+  
+- Post Editing: Edit existing blog posts
+  
+- Post Deletion: Delete posts with confirmation
+  
+- Comments: Add and view comments under posts
+  
+- Filtering & Search: Search by title and author, sort posts
+
+- Tag System: Tag support for post categorization
+  
+
+<h2> UI/UX </h2> 
+
+- Responsive Design: Works across all device sizes
+
+- Modern UI: Built with Tailwind CSS
+  
+- Smooth Animations: Transitions and hover effects
+
+
+<h2> Technical Stack </h2>
+
+- TypeScript: Fully typed codebase
+  
+- Next.js 15+: Server-side rendering (SSR) with the App Router
+  
+- Redux Toolkit Query: Efficient and scalable state management
+
+- Zod Validation: Strong form validation
+
+- Firebase Firestore: Real-time database backend
+
+- Jest Testing: Unit test coverage for key logic
+  
+
+<h2> Zod Validation </h2> 
+<h3> Post Schema </h3>
+
+```
+  const createPostSchema = z.object({
+  title: z.string().min(3).max(100),
+  content: z.string().min(10).max(5000),
+  author: z.string().min(2).max(50),
+  excerpt: z.string().min(10).max(200),
+  tags: z.array(z.string()).max(5),
 });
-Comment Schema
-typescriptconst createCommentSchema = z.object({
-postId: z.string().min(1),
-author: z.string().min(2).max(50),
-content: z.string().min(5).max(500)
+```
+
+<h3>Comment Schema </h3>
+
+```
+  const createCommentSchema = z.object({
+  postId: z.string().min(1),
+  author: z.string().min(2).max(50),
+  content: z.string().min(5).max(500),
 });
-🎨 UI Components
-Basic components
+```
 
-Button - Button with different style options
-Input - Input field with validation
-Textarea - Multiline input field
-Card - Container with shadow
-Badge - Label for tags
-LoadingSpinner - Loading indicator
+<h2>  UI Components </h2>
+<h3>Base Components</h3>
 
-Composite components
+- Button – Styled button with variants
 
-PostCard - Post card in the list
-PostForm - Post creation/editing form
-PostDetail - Post detailed view
-FilterBar - Filter and search panel
-CommentForm - Comment adding form
-CommentList - Comment list
+- Input – Validated input field
+
+- Textarea – Multi-line input
+
+- Card – Container with shadow
+
+- Badge – Tag label
+
+- LoadingSpinner – Loading indicator
+
+<h3>Composite Components</h3>
+
+- PostCard – Post preview card
+
+- PostForm – Form for creating/editing posts
+
+- PostDetail – Full post view
+
+- FilterBar – Search and filter UI
+
+- CommentForm – Add a comment
+
+- CommentList – Render list of comments
+  
+
+<h2>  Environment Variables </h2>
+
+Be sure to configure environment variables on your deployment platform:
+
+```
+NEXT_PUBLIC_FIREBASE_API_KEY
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+NEXT_PUBLIC_FIREBASE_PROJECT_ID
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+NEXT_PUBLIC_FIREBASE_APP_ID
+```
+
+<h2>Responsiveness </h2> 
+
+The app is fully responsive and tested across:
+
+- Desktop: 1920px and above
+
+- Laptop: 1024px – 1919px
+
+- Tablet: 768px – 1023px
+
+- Mobile: 320px – 767px
+
