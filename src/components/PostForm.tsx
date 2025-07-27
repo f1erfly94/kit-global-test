@@ -1,4 +1,4 @@
-'use client';
+'use client'
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { X, Plus } from 'lucide-react';
