@@ -13,7 +13,8 @@ import {
     where,
     Timestamp
 } from 'firebase/firestore';
-import { Post, CreatePostData, BlogComment, CreateBlogCommentData } from '@/types';
+import {  BlogComment, CreateBlogCommentData } from '@/types';
+import {CreatePostData, Post} from "@/types/post";
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,

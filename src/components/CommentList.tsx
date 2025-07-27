@@ -1,21 +1,22 @@
 'use client';
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { MessageCircle, Trash2, User, Calendar } from 'lucide-react';
-import { RootState, AppDispatch } from '@/store';
-import { deleteComment, fetchComments } from '@/store/slices/commentsSlice';
-import { Card } from './ui/Card';
-import { Button } from './ui/Button';
-import { LoadingSpinner } from './ui/LoadingSpinner';
-import {  CommentsState } from "@/types";
-import {  Comment } from "@/types";
+import React, {useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {MessageCircle, Trash2, User, Calendar} from 'lucide-react';
+import {RootState, AppDispatch} from '@/store';
+import {deleteComment, fetchComments} from '@/store/slices/commentsSlice';
+import {Card} from './ui/Card';
+import {Button} from './ui/Button';
+import {LoadingSpinner} from './ui/LoadingSpinner';
+import {CommentsState} from "@/types";
+import {Comment} from "@/types";
+
 interface CommentListProps {
     postId: string;
 }
 
-export const CommentList: React.FC<CommentListProps> = ({ postId }) => {
+export const CommentList: React.FC<CommentListProps> = ({postId}) => {
     const dispatch = useDispatch<AppDispatch>();
-    const { items: comments, loading, error } = useSelector((state: RootState) => state.comments) as CommentsState;
+    const {items: comments, loading, error} = useSelector((state: RootState) => state.comments) as CommentsState;
 
     useEffect(() => {
         if (postId) {
@@ -26,19 +27,6 @@ export const CommentList: React.FC<CommentListProps> = ({ postId }) => {
     const postComments = (comments as Array<Comment & { postId: string }>)
         .filter(comment => comment.postId === postId);
 
-    const formatDate = (dateString: string) => {
-        try {
-            return new Date(dateString).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-        } catch (error) {
-            return 'Invalid date';
-        }
-    };
 
     const handleDelete = async (commentId: string) => {
         if (window.confirm('Are you sure you want to delete this comment?')) {
@@ -53,7 +41,7 @@ export const CommentList: React.FC<CommentListProps> = ({ postId }) => {
     if (loading && postComments.length === 0) {
         return (
             <div className="flex justify-center py-8 min-h-[200px]">
-                <LoadingSpinner />
+                <LoadingSpinner/>
             </div>
         );
     }
@@ -72,7 +60,7 @@ export const CommentList: React.FC<CommentListProps> = ({ postId }) => {
         <Card>
             <div className="p-6">
                 <div className="flex items-center gap-2 mb-6">
-                    <MessageCircle className="w-5 h-5 text-gray-600" />
+                    <MessageCircle className="w-5 h-5 text-gray-600"/>
                     <h3 className="text-lg font-semibold text-gray-900">
                         Comments ({postComments.length})
                     </h3>
@@ -93,13 +81,13 @@ export const CommentList: React.FC<CommentListProps> = ({ postId }) => {
                                 <div className="flex items-start justify-between mb-3">
                                     <div className="flex items-center gap-3 text-sm text-gray-600">
                                         <div className="flex items-center gap-1">
-                                            <User className="w-4 h-4" />
+                                            <User className="w-4 h-4"/>
                                             <span className="font-medium text-gray-900">
                                                 {comment.author || 'Anonymous'}
                                             </span>
                                         </div>
                                         <div className="flex items-center gap-1">
-                                            <Calendar className="w-4 h-4" />
+                                            <Calendar className="w-4 h-4"/>
                                             <span>{formatDate(comment.createdAt)}</span>
                                         </div>
                                     </div>
@@ -111,7 +99,7 @@ export const CommentList: React.FC<CommentListProps> = ({ postId }) => {
                                         className="opacity-0 group-hover:opacity-100 transition-opacity p-1 text-red-600 hover:text-red-700 hover:bg-red-50"
                                         disabled={loading}
                                     >
-                                        <Trash2 className="w-4 h-4" />
+                                        <Trash2 className="w-4 h-4"/>
                                     </Button>
                                 </div>
 

@@ -1,21 +1,21 @@
 'use client';
-import React, { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState, AppDispatch } from '@/store';
-import { fetchPosts, deletePost } from '@/store/slices/postsSlice';
-import { PostCard } from './PostCard';
-import { LoadingSpinner } from './ui/LoadingSpinner';
-import { Button } from './ui/Button';
-import { Post } from '@/types';
+import React, {useEffect, useMemo} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState, AppDispatch} from '@/store';
+import {fetchPosts, deletePost} from '@/store/slices/postsSlice';
+import {PostCard} from './PostCard';
+import {LoadingSpinner} from './ui/LoadingSpinner';
+import {Button} from './ui/Button';
+import {Post} from "@/types/post";
 
 interface PostListProps {
     onEdit?: (post: Post) => void;
     showActions?: boolean;
 }
 
-export const PostList: React.FC<PostListProps> = ({ onEdit, showActions = false }) => {
+export const PostList: React.FC<PostListProps> = ({onEdit, showActions = false}) => {
     const dispatch = useDispatch<AppDispatch>();
-    const { items: posts, loading, error } = useSelector((state: RootState) => state.posts);
+    const {items: posts, loading, error} = useSelector((state: RootState) => state.posts);
     const filters = useSelector((state: RootState) => state.filters);
 
     useEffect(() => {
@@ -60,7 +60,7 @@ export const PostList: React.FC<PostListProps> = ({ onEdit, showActions = false 
     if (loading && posts.length === 0) {
         return (
             <div className="flex justify-center py-12 min-h-[50vh]">
-                <LoadingSpinner size="lg" />
+                <LoadingSpinner size="lg"/>
             </div>
         );
     }

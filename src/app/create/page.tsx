@@ -1,8 +1,8 @@
 "use client";
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
-import { PostForm } from '@/components/PostForm';
+import {useRouter} from 'next/navigation';
+import {PostForm} from '@/components/PostForm';
 
 export default function CreatePostPage() {
     const router = useRouter();
@@ -17,7 +17,7 @@ export default function CreatePostPage() {
 
     return (
         <div className="max-w-4xl mx-auto">
-            <PostForm onSuccess={handleSuccess} onCancel={handleCancel} />
+            <PostForm onSuccess={handleSuccess} onCancel={handleCancel}/>
         </div>
     );
 }

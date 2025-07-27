@@ -1,11 +1,11 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
-import { Calendar, User, Tag, Edit, Trash2 } from 'lucide-react';
-import { Post } from '@/types';
-import { Card } from './ui/Card';
-import { Badge } from './ui/Badge';
-import { Button } from './ui/Button';
+import {Calendar, User, Tag, Edit, Trash2} from 'lucide-react';
+import {Card} from './ui/Card';
+import {Badge} from './ui/Badge';
+import {Button} from './ui/Button';
+import {Post} from "@/types/post";
 
 interface PostCardProps {
     post: Post;
@@ -50,7 +50,7 @@ export const PostCard: React.FC<PostCardProps> = ({
                                     onClick={() => onEdit(post)}
                                     className="p-2"
                                 >
-                                    <Edit className="w-4 h-4" />
+                                    <Edit className="w-4 h-4"/>
                                 </Button>
                             )}
                             {onDelete && (
@@ -60,7 +60,7 @@ export const PostCard: React.FC<PostCardProps> = ({
                                     onClick={() => onDelete(post.id)}
                                     className="p-2 text-red-600 hover:text-red-700 hover:bg-red-50"
                                 >
-                                    <Trash2 className="w-4 h-4" />
+                                    <Trash2 className="w-4 h-4"/>
                                 </Button>
                             )}
                         </div>
@@ -73,18 +73,18 @@ export const PostCard: React.FC<PostCardProps> = ({
 
                 <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
                     <div className="flex items-center gap-1">
-                        <User className="w-4 h-4" />
+                        <User className="w-4 h-4"/>
                         <span>{post.author}</span>
                     </div>
                     <div className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
+                        <Calendar className="w-4 h-4"/>
                         <span>{formatDate(post.createdAt)}</span>
                     </div>
                 </div>
 
                 {post.tags && post.tags.length > 0 && (
                     <div className="flex items-center gap-2 flex-wrap">
-                        <Tag className="w-4 h-4 text-gray-400" />
+                        <Tag className="w-4 h-4 text-gray-400"/>
                         {post.tags.map((tag, index) => (
                             <Badge key={index} variant="secondary">
                                 {tag}

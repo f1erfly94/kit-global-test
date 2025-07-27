@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { Post, CreatePostData, PostsState } from '@/types';
+import { PostsState } from '@/types';
 import { FirebaseService } from '@/lib/firebase';
+import {deletePost} from "@/store/slices/postsSlice";
+import {CreatePostData} from "@/types/post";
 
 const initialState: PostsState = {
     items: [],
@@ -63,17 +65,6 @@ export const updatePost = createAsyncThunk(
     }
 );
 
-export const deletePost = createAsyncThunk(
-    'posts/deletePost',
-    async (id: string, { rejectWithValue }) => {
-        try {
-            await FirebaseService.deletePost(id);
-            return id;
-        } catch (error) {
-            return rejectWithValue(error instanceof Error ? error.message : 'Failed to delete post');
-        }
-    }
-);
 
 const postsSlice = createSlice({
     name: 'posts',

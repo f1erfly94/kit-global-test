@@ -1,27 +1,27 @@
 'use client';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/navigation';
-import { ArrowLeft, Calendar, User, Tag, Edit, Trash2 } from 'lucide-react';
-import { RootState, AppDispatch } from '@/store';
-import { fetchPost, deletePost } from '@/store/slices/postsSlice';
-import { fetchComments } from '@/store/slices/commentsSlice';
-import { Card } from './ui/Card';
-import { Button } from './ui/Button';
-import { Badge } from './ui/Badge';
-import { LoadingSpinner } from './ui/LoadingSpinner';
-import { CommentList } from './CommentList';
-import { CommentForm } from './CommentForm';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {useRouter} from 'next/navigation';
+import {ArrowLeft, Calendar, User, Tag, Edit, Trash2} from 'lucide-react';
+import {RootState, AppDispatch} from '@/store';
+import {fetchPost, deletePost} from '@/store/slices/postsSlice';
+import {fetchComments} from '@/store/slices/commentsSlice';
+import {Card} from './ui/Card';
+import {Button} from './ui/Button';
+import {Badge} from './ui/Badge';
+import {LoadingSpinner} from './ui/LoadingSpinner';
+import {CommentList} from './CommentList';
+import {CommentForm} from './CommentForm';
 
 interface PostDetailProps {
     postId: string;
     onEdit?: () => void;
 }
 
-export const PostDetail: React.FC<PostDetailProps> = ({ postId, onEdit }) => {
+export const PostDetail: React.FC<PostDetailProps> = ({postId, onEdit}) => {
     const dispatch = useDispatch<AppDispatch>();
     const router = useRouter();
-    const { currentPost: post, loading, error } = useSelector((state: RootState) => state.posts);
+    const {currentPost: post, loading, error} = useSelector((state: RootState) => state.posts);
 
     useEffect(() => {
         dispatch(fetchPost(postId));
@@ -48,7 +48,7 @@ export const PostDetail: React.FC<PostDetailProps> = ({ postId, onEdit }) => {
     if (loading && !post) {
         return (
             <div className="flex justify-center py-12">
-                <LoadingSpinner size="lg" />
+                <LoadingSpinner size="lg"/>
             </div>
         );
     }
@@ -60,7 +60,7 @@ export const PostDetail: React.FC<PostDetailProps> = ({ postId, onEdit }) => {
                     <p className="text-lg font-semibold">Post not found</p>
                 </div>
                 <Button onClick={() => router.push('/')}>
-                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    <ArrowLeft className="w-4 h-4 mr-2"/>
                     Back to list
                 </Button>
             </div>
@@ -75,19 +75,19 @@ export const PostDetail: React.FC<PostDetailProps> = ({ postId, onEdit }) => {
                     onClick={() => router.push('/')}
                     className="flex items-center gap-2"
                 >
-                    <ArrowLeft className="w-4 h-4" />
+                    <ArrowLeft className="w-4 h-4"/>
                     Back to list
                 </Button>
 
                 <div className="flex gap-2">
                     {onEdit && (
                         <Button onClick={onEdit} variant="secondary" size="sm">
-                            <Edit className="w-4 h-4 mr-2" />
+                            <Edit className="w-4 h-4 mr-2"/>
                             Edit
                         </Button>
                     )}
                     <Button onClick={handleDelete} variant="danger" size="sm">
-                        <Trash2 className="w-4 h-4 mr-2" />
+                        <Trash2 className="w-4 h-4 mr-2"/>
                         Delete
                     </Button>
                 </div>
@@ -101,11 +101,11 @@ export const PostDetail: React.FC<PostDetailProps> = ({ postId, onEdit }) => {
 
                     <div className="flex items-center gap-6 text-gray-500 mb-6 pb-6 border-b border-gray-200">
                         <div className="flex items-center gap-2">
-                            <User className="w-5 h-5" />
+                            <User className="w-5 h-5"/>
                             <span className="font-medium">{post.author}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <Calendar className="w-5 h-5" />
+                            <Calendar className="w-5 h-5"/>
                             <span>{formatDate(post.createdAt)}</span>
                         </div>
                         {post.updatedAt !== post.createdAt && (
@@ -117,7 +117,7 @@ export const PostDetail: React.FC<PostDetailProps> = ({ postId, onEdit }) => {
 
                     {post.tags && post.tags.length > 0 && (
                         <div className="flex items-center gap-2 flex-wrap mb-8">
-                            <Tag className="w-5 h-5 text-gray-400" />
+                            <Tag className="w-5 h-5 text-gray-400"/>
                             {post.tags.map((tag, index) => (
                                 <Badge key={index} variant="secondary">
                                     {tag}
@@ -137,8 +137,8 @@ export const PostDetail: React.FC<PostDetailProps> = ({ postId, onEdit }) => {
             </Card>
 
             <div className="space-y-6">
-                <CommentForm postId={postId} />
-                <CommentList postId={postId} />
+                <CommentForm postId={postId}/>
+                <CommentList postId={postId}/>
             </div>
         </div>
     );

@@ -1,17 +1,17 @@
 'use client'
 
-import React, { useState, useEffect, KeyboardEvent, ChangeEvent, FormEvent } from 'react';
-import { useDispatch } from 'react-redux';
-import { X, Plus } from 'lucide-react';
-import { AppDispatch } from '@/store';
-import { createPost, updatePost } from '@/store/slices/postsSlice';
-import { Post, CreatePostData } from '@/types';
-import { Input } from './ui/Input';
-import { Textarea } from './ui/Textarea';
-import { Button } from './ui/Button';
-import { Card } from './ui/Card';
-import { validateFormData } from "@/lib/validations/filterSchema";
-import { createPostSchema } from "@/lib/validations/postSchema";
+import React, {useState, useEffect, KeyboardEvent, ChangeEvent, FormEvent} from 'react';
+import {useDispatch} from 'react-redux';
+import {X, Plus} from 'lucide-react';
+import {AppDispatch} from '@/store';
+import {createPost, updatePost} from '@/store/slices/postsSlice';
+import {Input} from './ui/Input';
+import {Textarea} from './ui/Textarea';
+import {Button} from './ui/Button';
+import {Card} from './ui/Card';
+import {validateFormData} from "@/lib/validations/filterSchema";
+import {createPostSchema} from "@/lib/validations/postSchema";
+import {CreatePostData, Post} from "@/types/post";
 
 interface PostFormProps {
     post?: Post | null;
@@ -19,7 +19,7 @@ interface PostFormProps {
     onCancel?: () => void;
 }
 
-export const PostForm: React.FC<PostFormProps> = ({ post, onSuccess, onCancel }) => {
+export const PostForm: React.FC<PostFormProps> = ({post, onSuccess, onCancel}) => {
     const dispatch = useDispatch<AppDispatch>();
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState<Record<string, string>>({});
@@ -46,9 +46,9 @@ export const PostForm: React.FC<PostFormProps> = ({ post, onSuccess, onCancel })
     }, [post]);
 
     const handleInputChange = (field: keyof CreatePostData, value: string) => {
-        setFormData(prev => ({ ...prev, [field]: value }));
+        setFormData(prev => ({...prev, [field]: value}));
         if (errors[field]) {
-            setErrors(prev => ({ ...prev, [field]: '' }));
+            setErrors(prev => ({...prev, [field]: ''}));
         }
     };
 
@@ -85,14 +85,14 @@ export const PostForm: React.FC<PostFormProps> = ({ post, onSuccess, onCancel })
 
         try {
             if (post) {
-                await dispatch(updatePost({ id: post.id, updates: validation.data! }));
+                await dispatch(updatePost({id: post.id, updates: validation.data!}));
             } else {
                 await dispatch(createPost(validation.data!));
             }
 
             onSuccess?.();
         } catch (error) {
-            setErrors({ general: 'An error occurred while saving the post.' });
+            setErrors({general: 'An error occurred while saving the post.'});
         } finally {
             setLoading(false);
         }
@@ -180,7 +180,7 @@ export const PostForm: React.FC<PostFormProps> = ({ post, onSuccess, onCancel })
                                 disabled={!tagInput.trim() || formData.tags.length >= 5}
                                 size="sm"
                             >
-                                <Plus className="w-4 h-4" />
+                                <Plus className="w-4 h-4"/>
                             </Button>
                         </div>
 
@@ -197,7 +197,7 @@ export const PostForm: React.FC<PostFormProps> = ({ post, onSuccess, onCancel })
                                             onClick={() => handleRemoveTag(tag)}
                                             className="hover:text-blue-600"
                                         >
-                                            <X className="w-3 h-3" />
+                                            <X className="w-3 h-3"/>
                                         </button>
                                     </span>
                                 ))}

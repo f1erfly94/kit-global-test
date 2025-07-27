@@ -1,6 +1,7 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { Post, CreatePostData, PostsState } from '@/types';
-import { FirebaseService } from '@/lib/firebase';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {PostsState} from '@/types';
+import {FirebaseService} from '@/lib/firebase';
+import {CreatePostData} from "@/types/post";
 
 const initialState: PostsState = {
     items: [],
@@ -9,13 +10,11 @@ const initialState: PostsState = {
     error: null,
 };
 
-// Async thunks
 export const fetchPosts = createAsyncThunk(
     'posts/fetchPosts',
     async (_, { rejectWithValue }) => {
         try {
-            const posts = await FirebaseService.getPosts();
-            return posts;
+            return await FirebaseService.getPosts();
         } catch (error) {
             return rejectWithValue(error instanceof Error ? error.message : 'Failed to fetch posts');
         }
@@ -42,8 +41,7 @@ export const createPost = createAsyncThunk(
     async (postData: CreatePostData, { rejectWithValue }) => {
         try {
             const postId = await FirebaseService.createPost(postData);
-            const newPost = await FirebaseService.getPost(postId);
-            return newPost;
+            return await FirebaseService.getPost(postId);
         } catch (error) {
             return rejectWithValue(error instanceof Error ? error.message : 'Failed to create post');
         }
@@ -55,8 +53,7 @@ export const updatePost = createAsyncThunk(
     async ({ id, updates }: { id: string; updates: Partial<CreatePostData> }, { rejectWithValue }) => {
         try {
             await FirebaseService.updatePost(id, updates);
-            const updatedPost = await FirebaseService.getPost(id);
-            return updatedPost;
+            return await FirebaseService.getPost(id);
         } catch (error) {
             return rejectWithValue(error instanceof Error ? error.message : 'Failed to update post');
         }
@@ -151,5 +148,5 @@ const postsSlice = createSlice({
     },
 });
 
-export const { clearCurrentPost, clearError } = postsSlice.actions;
+export const {clearError } = postsSlice.actions;
 export default postsSlice.reducer;

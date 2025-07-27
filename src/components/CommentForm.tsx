@@ -1,24 +1,24 @@
 'use client';
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { MessageCircle } from 'lucide-react';
-import { AppDispatch, RootState } from '@/store';
-import { createComment } from '@/store/slices/commentsSlice';
-import { BlogComment, CreateBlogCommentData } from '@/types';
-import { Input } from './ui/Input';
-import { Textarea } from './ui/Textarea';
-import { Button } from './ui/Button';
-import { Card } from './ui/Card';
-import { validateFormData } from '@/lib/validations/filterSchema';
-import { createCommentSchema } from '@/lib/validations/commentSchema';
+import React, {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {MessageCircle} from 'lucide-react';
+import {AppDispatch, RootState} from '@/store';
+import {createComment} from '@/store/slices/commentsSlice';
+import {BlogComment, CreateBlogCommentData} from '@/types';
+import {Input} from './ui/Input';
+import {Textarea} from './ui/Textarea';
+import {Button} from './ui/Button';
+import {Card} from './ui/Card';
+import {validateFormData} from '@/lib/validations/filterSchema';
+import {createCommentSchema} from '@/lib/validations/commentSchema';
 
 interface CommentFormProps {
     postId: string;
 }
 
-export const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
+export const CommentForm: React.FC<CommentFormProps> = ({postId}) => {
     const dispatch = useDispatch<AppDispatch>();
-    const { loading, error } = useSelector((state: RootState) => state.comments);
+    const {loading, error} = useSelector((state: RootState) => state.comments);
     const [localLoading, setLocalLoading] = useState(false);
     const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -29,9 +29,9 @@ export const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
     });
 
     const handleInputChange = (field: keyof CreateBlogCommentData, value: string) => {
-        setFormData(prev => ({ ...prev, [field]: value }));
+        setFormData(prev => ({...prev, [field]: value}));
         if (errors[field]) {
-            setErrors(prev => ({ ...prev, [field]: '' }));
+            setErrors(prev => ({...prev, [field]: ''}));
         }
     };
 
@@ -57,7 +57,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
                 createdAt: new Date().toISOString(),
             };
 
-            setFormData({ postId, author: '', content: '' });
+            setFormData({postId, author: '', content: ''});
 
             const result = await dispatch(createComment(validation.data!));
 
@@ -81,7 +81,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
         <Card>
             <div className="p-6">
                 <div className="flex items-center gap-2 mb-4">
-                    <MessageCircle className="w-5 h-5 text-blue-600" />
+                    <MessageCircle className="w-5 h-5 text-blue-600"/>
                     <h3 className="text-lg font-semibold text-gray-900">
                         Add a Comment
                     </h3>

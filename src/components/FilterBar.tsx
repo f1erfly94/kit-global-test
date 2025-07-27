@@ -1,12 +1,12 @@
 'use client';
 
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Search, User, SortAsc } from 'lucide-react';
-import { RootState } from '@/store';
-import { setSearchTerm, setAuthor, setSortBy, resetFilters } from '@/store/slices/filtersSlice';
-import { Input } from './ui/Input';
-import { Button } from './ui/Button';
+import {useDispatch, useSelector} from 'react-redux';
+import {Search, User, SortAsc} from 'lucide-react';
+import {RootState} from '@/store';
+import {setSearchTerm, setAuthor, setSortBy, resetFilters} from '@/store/slices/filtersSlice';
+import {Input} from './ui/Input';
+import {Button} from './ui/Button';
 
 export const FilterBar: React.FC = () => {
     const dispatch = useDispatch();
@@ -17,7 +17,7 @@ export const FilterBar: React.FC = () => {
             <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-end">
                 <div className="flex-1 min-w-0">
                     <div className="relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"/>
                         <Input
                             placeholder="Search by title..."
                             value={filters.searchTerm}
@@ -31,7 +31,7 @@ export const FilterBar: React.FC = () => {
 
                 <div className="w-full lg:w-48">
                     <div className="relative">
-                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"/>
                         <Input
                             placeholder="Author..."
                             value={filters.author}
@@ -45,7 +45,7 @@ export const FilterBar: React.FC = () => {
 
                 <div className="w-full lg:w-40">
                     <div className="relative">
-                        <SortAsc className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                        <SortAsc className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"/>
                         <select
                             value={filters.sortBy}
                             onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
