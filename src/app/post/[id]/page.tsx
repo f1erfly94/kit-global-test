@@ -1,11 +1,11 @@
-import PostPageClient from "@/components/PostPageClient";
+import PostPageClient from '@/components/PostPageClient';
 
 interface PageProps {
-    params: Promise<{ id: string }>;
+  params: Promise<{ id: string }>;
 }
 
-export default async function PostPage({params}: PageProps) {
-    const {id} = await params;
+export default async function PostPage({ params }: PageProps) {
+  const { id } = await params;
 
-    return <PostPageClient postId={id}/>;
+  return <PostPageClient postId={id} />;
 }

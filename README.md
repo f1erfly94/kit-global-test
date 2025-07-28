@@ -1,26 +1,24 @@
 <h1> Single-Page Blog with Redux Toolkit, TypeScript, and Next.js 15+ </h1>
 A modern blog web application built using cutting-edge web technologies. This project demonstrates best practices in React development with TypeScript, Redux Toolkit for state management, Next.js 15+ with the App Router for SSR, Zod for data validation, and Firebase Firestore as a backend database.
 
-<h2>Installation & Setup</h2> 
+<h2>Installation & Setup</h2>
 
 1. Clone the Repository
-   
-```git clone https://github.com/f1erfly94/kit-global-test/```
 
-```cd blog-app```
+`git clone https://github.com/f1erfly94/kit-global-test/`
+
+`cd blog-app`
 
 2. Install Dependencies
-   
-```npm install```
+
+`npm install`
 or
-```yarn install```
+`yarn install`
 
 3. Set Up Firebase
-   
+
 - Create a project in Firebase Console
-  
 - Enable Firestore Database
-  
 - Create a .env.local file in the root directory with the following:
 
 ```
@@ -33,46 +31,36 @@ NEXT_PUBLIC_FIREBASE_APP_ID=1:123456789:web:abcdef123456
 ```
 
 4. Run the App
-   
-```npm run dev```
+
+`npm run dev`
 or
-```yarn dev```
+`yarn dev`
 
 6. Then open http://localhost:3000 in your browser
-
 
 <h2> Features </h2>
 
 - Post Listing: View a paginated list of blog posts
 
 - Post Creation: Form with field validation to create new posts
-  
 - Post Editing: Edit existing blog posts
-  
 - Post Deletion: Delete posts with confirmation
-  
 - Comments: Add and view comments under posts
-  
 - Filtering & Search: Search by title and author, sort posts
 
 - Tag System: Tag support for post categorization
-  
 
-<h2> UI/UX </h2> 
+<h2> UI/UX </h2>
 
 - Responsive Design: Works across all device sizes
 
 - Modern UI: Built with Tailwind CSS
-  
 - Smooth Animations: Transitions and hover effects
-
 
 <h2> Technical Stack </h2>
 
 - TypeScript: Fully typed codebase
-  
 - Next.js 15+: Server-side rendering (SSR) with the App Router
-  
 - Redux Toolkit Query: Efficient and scalable state management
 
 - Zod Validation: Strong form validation
@@ -80,7 +68,6 @@ or
 - Firebase Firestore: Real-time database backend
 
 - Jest Testing: Unit test coverage for key logic
-  
 
 <h2> Zod Validation </h2> 
 <h3> Post Schema </h3>
@@ -133,7 +120,6 @@ or
 - CommentForm – Add a comment
 
 - CommentList – Render list of comments
-  
 
 <h2>  Environment Variables </h2>
 
@@ -148,7 +134,7 @@ NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
 NEXT_PUBLIC_FIREBASE_APP_ID
 ```
 
-<h2>Responsiveness </h2> 
+<h2>Responsiveness </h2>
 
 The app is fully responsive and tested across:
 
@@ -159,4 +145,3 @@ The app is fully responsive and tested across:
 - Tablet: 768px – 1023px
 
 - Mobile: 320px – 767px
-
