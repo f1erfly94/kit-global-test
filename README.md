@@ -1,7 +1,7 @@
-<h1> Single-Page Blog with Redux Toolkit, TypeScript, and Next.js 15+ </h1>
+# Single-Page Blog with Redux Toolkit, TypeScript, and Next.js 15+ 
 A modern blog web application built using cutting-edge web technologies. This project demonstrates best practices in React development with TypeScript, Redux Toolkit for state management, Next.js 15+ with the App Router for SSR, Zod for data validation, and Firebase Firestore as a backend database.
 
-<h2>Installation & Setup</h2> 
+## Installation & Setup 
 
 1. Clone the Repository
    
@@ -41,7 +41,7 @@ or
 6. Then open http://localhost:3000 in your browser
 
 
-<h2> Features </h2>
+## Features 
 
 - Post Listing: View a paginated list of blog posts
 
@@ -58,7 +58,7 @@ or
 - Tag System: Tag support for post categorization
   
 
-<h2> UI/UX </h2> 
+## UI/UX 
 
 - Responsive Design: Works across all device sizes
 
@@ -67,7 +67,7 @@ or
 - Smooth Animations: Transitions and hover effects
 
 
-<h2> Technical Stack </h2>
+## Technical Stack 
 
 - TypeScript: Fully typed codebase
   
@@ -82,8 +82,8 @@ or
 - Jest Testing: Unit test coverage for key logic
   
 
-<h2> Zod Validation </h2> 
-<h3> Post Schema </h3>
+## Zod Validation 
+### Post Schema 
 
 ```
   const createPostSchema = z.object({
@@ -95,7 +95,7 @@ or
 });
 ```
 
-<h3>Comment Schema </h3>
+### Comment Schema 
 
 ```
   const createCommentSchema = z.object({
@@ -105,8 +105,8 @@ or
 });
 ```
 
-<h2>  UI Components </h2>
-<h3>Base Components</h3>
+##  UI Components 
+### Base Components
 
 - Button – Styled button with variants
 
@@ -120,7 +120,7 @@ or
 
 - LoadingSpinner – Loading indicator
 
-<h3>Composite Components</h3>
+### Composite Components
 
 - PostCard – Post preview card
 
@@ -135,7 +135,7 @@ or
 - CommentList – Render list of comments
   
 
-<h2>  Environment Variables </h2>
+## Environment Variables
 
 Be sure to configure environment variables on your deployment platform:
 
@@ -148,7 +148,7 @@ NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
 NEXT_PUBLIC_FIREBASE_APP_ID
 ```
 
-<h2>Responsiveness </h2> 
+## Responsiveness 
 
 The app is fully responsive and tested across:
 
